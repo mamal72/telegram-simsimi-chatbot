@@ -40,24 +40,28 @@ end
 
 
 Telegram::Bot::Client.run(TOKEN) do |bot|
-  bot.listen do |message|
-    next if message.text.nil?
-    case message.text
-    when '/start'
-      bot.api.send_message(
-        chat_id: message.chat.id,
-        text: START_MESSAGE
-      )
-    when '/stop'
-      bot.api.send_message(
-        chat_id: message.chat.id,
-        text: STOP_MESSAGE
-      )
-    else
-      bot.api.send_message(
-        chat_id: message.chat.id,
-        text: message.text.simsimi_response
-      )
+  begin
+    bot.listen do |message|
+      next if message.text.nil?
+      case message.text
+      when '/start'
+        bot.api.send_message(
+          chat_id: message.chat.id,
+          text: START_MESSAGE
+        )
+      when '/stop'
+        bot.api.send_message(
+          chat_id: message.chat.id,
+          text: STOP_MESSAGE
+        )
+      else
+        bot.api.send_message(
+          chat_id: message.chat.id,
+          text: message.text.simsimi_response
+        )
+      end
     end
+  rescue
+    next
   end
 end
