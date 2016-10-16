@@ -40,8 +40,8 @@ end
 
 
 Telegram::Bot::Client.run(TOKEN) do |bot|
-  begin
-    bot.listen do |message|
+  bot.listen do |message|
+    begin
       next if message.text.nil?
       case message.text
       when '/start'
@@ -60,8 +60,8 @@ Telegram::Bot::Client.run(TOKEN) do |bot|
           text: message.text.simsimi_response
         )
       end
+    rescue
+      next
     end
-  rescue
-    next
   end
 end
